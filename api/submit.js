@@ -12,12 +12,19 @@ export default async function handler(req, res) {
   const d = req.body;
 
   const socials = [
-    d.instagram && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">Instagram</td><td style="padding:6px 0;font-size:13px;font-weight:600;">@${d.instagram}</td></tr>`,
+    d.instagram && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;width:120px;">Instagram</td><td style="padding:6px 0;font-size:13px;font-weight:600;">@${d.instagram}</td></tr>`,
     d.facebook  && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">Facebook</td><td style="padding:6px 0;font-size:13px;font-weight:600;">${d.facebook}</td></tr>`,
     d.tiktok    && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">TikTok</td><td style="padding:6px 0;font-size:13px;font-weight:600;">@${d.tiktok}</td></tr>`,
     d.linkedin  && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">LinkedIn</td><td style="padding:6px 0;font-size:13px;font-weight:600;">${d.linkedin}</td></tr>`,
     d.youtube   && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">YouTube</td><td style="padding:6px 0;font-size:13px;font-weight:600;">${d.youtube}</td></tr>`,
+    d.xtwitter  && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">X / Twitter</td><td style="padding:6px 0;font-size:13px;font-weight:600;">@${d.xtwitter}</td></tr>`,
+    d.pinterest && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">Pinterest</td><td style="padding:6px 0;font-size:13px;font-weight:600;">@${d.pinterest}</td></tr>`,
+    d.gmb       && `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">Google Business</td><td style="padding:6px 0;font-size:13px;font-weight:600;"><a href="${d.gmb}" style="color:#0D9488;">${d.gmb}</a></td></tr>`,
   ].filter(Boolean).join('');
+
+  const webUrls = (d.webUrls || []).map(u =>
+    `<tr><td style="padding:6px 0;color:#64748B;font-size:13px;">Link</td><td style="padding:6px 0;font-size:13px;"><a href="${u}" style="color:#0D9488;">${u}</a></td></tr>`
+  ).join('');
 
   const html = `
 <!DOCTYPE html><html><body style="font-family:Inter,Arial,sans-serif;background:#F8FAFC;margin:0;padding:24px;">
@@ -50,6 +57,11 @@ export default async function handler(req, res) {
     ${socials ? `<table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
       <tr style="background:#F8FAFC;"><td colspan="2" style="padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94A3B8;border-radius:6px;">Socials</td></tr>
       ${socials}
+    </table>` : ''}
+
+    ${webUrls ? `<table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+      <tr style="background:#F8FAFC;"><td colspan="2" style="padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94A3B8;border-radius:6px;">Web Presence to Scrape</td></tr>
+      ${webUrls}
     </table>` : ''}
 
     <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
