@@ -36,6 +36,24 @@ function doPost(e) {
       counter++;
     }
 
+    // Save logo to Google Drive if provided
+    var logoUrl = '';
+    if (data.logo && data.logo.indexOf('base64,') !== -1) {
+      try {
+        var base64Data = data.logo.split('base64,')[1];
+        var mimeType   = data.logo.split(';')[0].split(':')[1] || 'image/png';
+        var ext        = mimeType.split('/')[1] || 'png';
+        var fileName   = (data.logoFileName || (finalSlug + '-logo.' + ext));
+        var blob       = Utilities.newBlob(Utilities.base64Decode(base64Data), mimeType, fileName);
+        var folder     = getOrCreateFolder('Opteva Client Logos');
+        var file       = folder.createFile(blob);
+        file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+        logoUrl = file.getUrl();
+      } catch (logoErr) {
+        logoUrl = 'Upload failed: ' + logoErr.toString();
+      }
+    }
+
     // Add header row if sheet is empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
@@ -48,7 +66,7 @@ function doPost(e) {
         'X / Twitter', 'Pinterest', 'Google Business',
         'Web URLs to Scrape',
         'Goals', 'Posting Frequency', 'Notes',
-        'Logo File Name'
+        'Logo File Name', 'Logo Drive URL'
       ]);
     }
 
@@ -78,7 +96,8 @@ function doPost(e) {
       data.goals     || '',
       data.frequency || '',
       data.notes     || '',
-      data.logoFileName || ''
+      data.logoFileName || '',
+      logoUrl
     ]);
 
     return ContentService
@@ -90,6 +109,12 @@ function doPost(e) {
       .createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+// ── Helper: get or create a Drive folder by name ──
+function getOrCreateFolder(name) {
+  var folders = DriveApp.getFoldersByName(name);
+  return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
 }
 
 // ── Look up a client by slug (used by the client content tool) ──
