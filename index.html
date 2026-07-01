@@ -566,13 +566,15 @@ async function submitForm() {
     logoFileName: logoFileName,
   };
 
+  const SHEET_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
   try {
-    const res = await fetch('/api/submit', {
+    await fetch(SHEET_URL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error('Submit failed');
     document.getElementById('success-name').textContent = payload.firstName + '!';
     goTo(5);
   } catch {
