@@ -126,18 +126,24 @@ function doGet(e) {
 
   try {
     var clientId = e.parameter.client;
-    if (!clientId) {
-      return ContentService
-        .createTextOutput(JSON.stringify({ error: 'No client ID provided' }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
 
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data  = sheet.getDataRange().getValues();
 
-    // Row 0 = headers, slug is column 0
+    // Debug: return all slugs when no client param provided
+    if (!clientId) {
+      var slugs = [];
+      for (var r = 1; r < data.length; r++) {
+        slugs.push({ row: r + 1, col_A: String(data[r][0]), col_B: String(data[r][1]).substring(0,20) });
+      }
+      return ContentService
+        .createTextOutput(JSON.stringify({ debug: true, rows: slugs }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Row 0 = headers, slug is column 0 (case-insensitive, trimmed)
     for (var i = 1; i < data.length; i++) {
-      if (data[i][0] === clientId) {
+      if (String(data[i][0]).trim().toLowerCase() === clientId.trim().toLowerCase()) {
         var row = data[i];
         var client = {
           clientId:   row[0],
