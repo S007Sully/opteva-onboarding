@@ -23,10 +23,6 @@
 }
 body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
 
-/* NAV */
-.nav{background:transparent;padding:22px 24px 4px;display:flex;align-items:center;justify-content:center;}
-.nav img{height:34px;width:auto;object-fit:contain;}
-
 /* PROGRESS */
 .progress-wrap{background:transparent;border-bottom:none;padding:14px 24px 0;}
 .progress-steps{display:flex;align-items:center;gap:0;max-width:560px;margin:0 auto;}
@@ -165,6 +161,7 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
   <div class="step active" id="step-0">
     <div class="welcome-hero">
       <img src="/opteva-logo.png" alt="Opteva" class="welcome-logo" style="width:200px;height:auto;margin-bottom:8px;">
+      <div class="welcome-title">Welcome aboard</div>
       <div class="welcome-sub">Let's get your account set up. This takes about 3 minutes and helps us build your AI social media system from day one.</div>
       <div class="welcome-steps">
         <div class="welcome-step-item"><div class="welcome-step-num">1</div><div class="welcome-step-text">Tell us about you and your business</div></div>
@@ -182,12 +179,12 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
     <div class="step-title">About You</div>
     <div class="step-sub">Let's start with the basics.</div>
     <div class="field-row">
-      <div class="field"><label>First Name</label><input type="text" id="firstName" placeholder="Stephanie"></div>
-      <div class="field"><label>Last Name</label><input type="text" id="lastName" placeholder="Sullivan"></div>
+      <div class="field"><label>First Name</label><input type="text" id="firstName"></div>
+      <div class="field"><label>Last Name</label><input type="text" id="lastName"></div>
     </div>
     <div class="field"><label>Email Address</label><input type="email" id="email" placeholder="you@yourbusiness.com"></div>
     <div class="field"><label>Phone Number</label><input type="tel" id="phone" placeholder="+1 (555) 000-0000"></div>
-    <div class="field"><label>Business Name</label><input type="text" id="bizName" placeholder="Your business name"></div>
+    <div class="field"><label>Business Name</label><input type="text" id="bizName"></div>
     <div class="field"><label>Website <span style="font-weight:400;text-transform:none;font-size:11px;">(optional)</span></label><input type="url" id="website" placeholder="https://yourbusiness.com"></div>
     <div class="error-msg" id="err-1">Please fill in your name, email, and business name.</div>
     <div class="btn-row">
@@ -226,26 +223,26 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
     </div>
     <div class="field">
       <label>Target Audience</label>
-      <input type="text" id="audience" placeholder="e.g. Women 30-55 in Miami interested in anti-aging">
+      <input type="text" id="audience">
     </div>
     <div class="field">
       <label>Brand Voice <span style="font-weight:400;text-transform:none;font-size:11px;">(how do you talk to clients?)</span></label>
-      <textarea id="brandVoice" placeholder="e.g. Warm and professional, educational but approachable, luxury feel without being intimidating..."></textarea>
+      <textarea id="brandVoice"></textarea>
     </div>
     <div class="field">
       <label>What Do You Offer?</label>
-      <p class="helper-text">List your treatments and services. Don't overthink it, a simple list is perfect.</p>
-      <textarea id="services" placeholder="Botox, filler, HydraFacial, laser hair removal, microneedling, memberships"></textarea>
+      <p class="helper-text">List your products and services. Don't overthink it, a simple list is perfect.</p>
+      <textarea id="services"></textarea>
     </div>
     <div class="field">
       <label>What Do You Want To Sell More Of?</label>
       <p class="helper-text">The one service you'd fill your calendar with if you could.</p>
-      <input type="text" id="heroService" placeholder="e.g. Monthly memberships">
+      <input type="text" id="heroService">
     </div>
     <div class="field">
       <label>Anything We Should Never Say? <span style="font-weight:400;text-transform:none;font-size:11px;">(optional)</span></label>
-      <p class="helper-text">Words, claims, or treatments to keep out of your content. We already avoid medical claims and guarantees, but tell us anything specific to you.</p>
-      <textarea id="offLimits" placeholder="e.g. Don't mention pricing, don't use the word cheap, we no longer offer PRP"></textarea>
+      <p class="helper-text">Words, claims, or offers to keep out of your content. We already avoid unsupported claims and guarantees, but tell us anything specific to you.</p>
+      <textarea id="offLimits"></textarea>
     </div>
     <div class="field">
       <label>Logo</label>
@@ -269,15 +266,15 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
         <div class="color-field">
           <label style="margin-bottom:5px;">Primary</label>
           <div class="color-pick-wrap">
-            <input type="color" id="color1" value="#0D9488" oninput="syncColor(this,'color1-hex')">
-            <input type="text" id="color1-hex" value="#0D9488" placeholder="#000000" oninput="syncHex(this,'color1')" maxlength="7">
+            <input type="color" id="color1" value="#182C63" oninput="syncColor(this,'color1-hex')">
+            <input type="text" id="color1-hex" value="#182C63" placeholder="#000000" oninput="syncHex(this,'color1')" maxlength="7">
           </div>
         </div>
         <div class="color-field">
           <label style="margin-bottom:5px;">Secondary</label>
           <div class="color-pick-wrap">
-            <input type="color" id="color2" value="#0F172A" oninput="syncColor(this,'color2-hex')">
-            <input type="text" id="color2-hex" value="#0F172A" placeholder="#000000" oninput="syncHex(this,'color2')" maxlength="7">
+            <input type="color" id="color2" value="#30C6CC" oninput="syncColor(this,'color2-hex')">
+            <input type="text" id="color2-hex" value="#30C6CC" placeholder="#000000" oninput="syncHex(this,'color2')" maxlength="7">
           </div>
         </div>
       </div>
@@ -344,7 +341,7 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
     <div class="field" style="margin-top:20px;">
       <label>Where Should People Book?</label>
       <p class="helper-text">This becomes the call to action on your posts. Booking page, phone number, or DM if that's how you take appointments.</p>
-      <input type="text" id="bookingLink" placeholder="https://yourclinic.com/book">
+      <input type="text" id="bookingLink" placeholder="https://yourbusiness.com/book">
     </div>
 
     <div class="field">
@@ -426,7 +423,7 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
 
     <div class="field">
       <label>Anything else we should know? <span style="font-weight:400;text-transform:none;font-size:11px;">(optional)</span></label>
-      <textarea id="notes" placeholder="Past agencies, specific campaigns you want to run, competitors to be aware of, upcoming promotions..."></textarea>
+      <textarea id="notes"></textarea>
     </div>
 
     <div class="error-msg" id="err-4">Please select at least one goal.</div>
@@ -435,7 +432,7 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
       <button class="btn-next" id="submit-btn" onclick="submitForm()">Submit →</button>
     </div>
     <div id="submit-loading" style="display:none;text-align:center;padding:16px;font-size:14px;color:var(--text-secondary);">
-      Sending your info to the Opteva team...
+      Sending your info to the <span data-brandname>Opteva</span> team...
     </div>
   </div>
 
@@ -444,8 +441,8 @@ body{font-family:'Inter Tight',sans-serif;background:var(--bg);color:var(--text)
     <div class="success-wrap">
       <div class="success-check"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
       <div class="success-title">You're all set, <span class="success-name" id="success-name">!</span></div>
-      <div class="success-sub">Your onboarding info has been sent to the Opteva team. Stephanie will be in touch within 24 hours to get your AI system up and running.</div>
-      <a href="https://opteva.ai" class="success-next">Visit opteva.ai →</a>
+      <div class="success-sub">Your onboarding info is in. The <span data-brandname>Opteva</span> team will be in touch within 24 hours to get your system up and running.</div>
+      <a href="https://opteva.ai" id="successLink" class="success-next">Visit opteva.ai →</a>
     </div>
   </div>
 
@@ -492,22 +489,65 @@ function nextFrom1() {
   goTo(2);
 }
 
+function flagMissing(list, errEl) {
+  document.querySelectorAll('.field-bad').forEach(function(e){ e.classList.remove('field-bad'); });
+  const missing = list.filter(function(f){
+    const el = document.getElementById(f.id);
+    return !el || !el.value.trim();
+  });
+  if (!missing.length) { errEl.style.display = 'none'; return true; }
+  missing.forEach(function(f){
+    const el = document.getElementById(f.id);
+    if (el && el.closest('.field')) el.closest('.field').classList.add('field-bad');
+  });
+  const names = missing.map(function(f){ return f.label; });
+  errEl.textContent = names.length === 1
+    ? 'Still need: ' + names[0]
+    : 'Still need: ' + names.slice(0,-1).join(', ') + ' and ' + names[names.length-1];
+  errEl.style.display = 'block';
+  const first = document.getElementById(missing[0].id);
+  if (first) {
+    first.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(function(){ first.focus({preventScroll:true}); }, 400);
+  }
+  return false;
+}
+
 function nextFrom2() {
-  const ind = document.getElementById('industry').value;
-  const aud = document.getElementById('audience').value.trim();
-  const svc = document.getElementById('services').value.trim();
-  const hero = document.getElementById('heroService').value.trim();
-  const err = document.getElementById('err-2');
-  if (!ind || !aud || !svc || !hero) { err.style.display = 'block'; return; }
-  err.style.display = 'none';
+  const ok = flagMissing([
+    {id:'industry',    label:'industry'},
+    {id:'audience',    label:'who you serve'},
+    {id:'services',    label:'what you offer'},
+    {id:'heroService', label:'what you want to sell more of'}
+  ], document.getElementById('err-2'));
+  if (!ok) return;
   goTo(3);
 }
 
 function nextFrom3() {
-  const handles = ['ig','fb','tt','li','yt','xtwitter','pinterest','gmb'].map(id => document.getElementById(id).value.trim());
+  document.querySelectorAll('.field-bad').forEach(function(e){ e.classList.remove('field-bad'); });
+  const handles = ['ig','fb','tt','li','yt','xtwitter','pinterest','gmb'].map(function(id){
+    return document.getElementById(id).value.trim();
+  });
   const booking = document.getElementById('bookingLink').value.trim();
   const err = document.getElementById('err-3');
-  if (handles.every(h => !h) || !booking || !selectedAsset || !selectedPhotos) { err.style.display = 'block'; return; }
+  const missing = [];
+  if (handles.every(function(v){ return !v; })) missing.push('at least one social handle');
+  if (!booking) { missing.push('a booking link'); document.getElementById('bookingLink').closest('.field').classList.add('field-bad'); }
+  if (!selectedAsset) missing.push('where your photos come from');
+  if (!selectedPhotos) missing.push('customer photo permission');
+
+  if (missing.length) {
+    err.textContent = missing.length === 1
+      ? 'Still need: ' + missing[0]
+      : 'Still need: ' + missing.slice(0,-1).join(', ') + ' and ' + missing[missing.length-1];
+    err.style.display = 'block';
+    const anchor = !handles.some(function(v){ return v; })
+      ? document.getElementById('ig')
+      : document.getElementById('bookingLink');
+    if (anchor) anchor.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
   err.style.display = 'none';
   goTo(4);
 }
@@ -629,7 +669,7 @@ async function submitForm() {
     bookingLink: document.getElementById('bookingLink').value.trim(),
     assetSource: selectedAsset,
     assetFolder: document.getElementById('assetFolder').value.trim(),
-    patientPhotos: selectedPhotos,
+    customerPhotos: selectedPhotos,
     webUrls: [...document.querySelectorAll('.url-input')].map(i => i.value.trim()).filter(Boolean),
     goals: goals.join(', '),
     frequency: selectedFreq,
@@ -652,7 +692,7 @@ async function submitForm() {
   } catch {
     document.getElementById('submit-btn').style.display = 'block';
     document.getElementById('submit-loading').style.display = 'none';
-    alert('Something went wrong. Please try again or email hello@opteva.ai directly.');
+    alert('Something went wrong. Please try again or email ' + BRAND.supportEmail + ' directly.');
   }
 }
 </script>
