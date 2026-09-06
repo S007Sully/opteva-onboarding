@@ -14,7 +14,16 @@
  * the Sheet with can read the code, and that secret is the only thing between a
  * stranger and a brand in your live account.
  *
- * TRIGGER: Triggers → Add trigger → onFormSubmit → From spreadsheet → On form submit
+ * HOW SUBMISSIONS ARRIVE: the onboarding page is a plain HTML form, not a
+ * Google Form, so it POSTs JSON straight to this script's web-app URL and
+ * doPost() handles it. Do NOT add an "On form submit" spreadsheet trigger:
+ * this script appends the row itself, so that trigger never fires and adding
+ * it only causes confusion. onFormSubmit() is kept because doPost() and the
+ * manual sendRow() both route through it.
+ *
+ * AFTER EDITING: Deploy > Manage deployments > (pencil) > Version: New version
+ * > Deploy. Edits do not go live until you publish a new version, and the form
+ * posts to the deployment URL hard-coded as SHEET_URL in index.html.
  */
 
 /**
