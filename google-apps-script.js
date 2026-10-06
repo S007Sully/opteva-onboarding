@@ -238,6 +238,59 @@ function slugify(s) {
 }
 
 /** Run this once by hand to check the wiring before trusting the form. */
+/**
+ * Is this script actually wired to the platform? Run this first.
+ *
+ * Creates nothing. It reports whether the two Script Properties are set and
+ * whether the platform answers, which is the whole of what can go wrong before
+ * a real submission is tried. The secret is never printed, only its length, so
+ * this is safe to run with somebody watching your screen.
+ *
+ * Apps Script editor: pick checkSetup in the function dropdown, press Run, and
+ * read the Execution log.
+ */
+function checkSetup() {
+  var props  = PropertiesService.getScriptProperties();
+  var url    = props.getProperty('OPTEVA_INTAKE_URL');
+  var secret = props.getProperty('OPTEVA_INTAKE_SECRET');
+  var lines  = [];
+
+  lines.push(url
+    ? 'OPTEVA_INTAKE_URL is set: ' + url
+    : 'OPTEVA_INTAKE_URL is NOT set.');
+  lines.push(secret
+    ? 'OPTEVA_INTAKE_SECRET is set (' + secret.length + ' characters).'
+    : 'OPTEVA_INTAKE_SECRET is NOT set.');
+
+  if (url) {
+    // A GET is answered 405 by the endpoint, which proves it is reachable and
+    // is the right address without creating anything.
+    try {
+      var code = UrlFetchApp.fetch(url, { method: 'get', muteHttpExceptions: true }).getResponseCode();
+      if (code === 405) {
+        lines.push('The platform answered. The address is right and the endpoint is live.');
+      } else if (code === 404) {
+        lines.push('The platform answered 404. The address is wrong, check it for a typo.');
+      } else {
+        lines.push('The platform answered ' + code + '. A GET should answer 405, so this address may be wrong.');
+      }
+    } catch (e) {
+      lines.push('Could not reach that address at all: ' + e);
+    }
+  }
+
+  lines.push(!url || !secret
+    ? 'Set whichever is missing in Project Settings, Script Properties, then run this again.'
+    : 'Configuration looks right. Run testIntake() to put one test brand through end to end.');
+
+  // Nothing here goes live until Deploy > Manage deployments > New version.
+  lines.push('Remember: editing this file changes nothing until you publish a new deployment.');
+
+  var out = lines.join('\n');
+  Logger.log(out);
+  return out;
+}
+
 function testIntake() {
   var out = sendToOpteva({
     clientId: 'test-' + new Date().getTime(),
